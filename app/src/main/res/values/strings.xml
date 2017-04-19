@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">GuessTheNumber</string>
+
+    <!-- Main activity-->
+    <string name="start">Start</string>
+    <string name="rules">Rules</string>
+    <string name="scores">Scores</string>
+    <string name="exit">Exit</string>
+
+    <string name="score">Score</string>
+
+    <!-- Game activity-->
+    <string name="small_text">You have to find 3 numbers in the correct places!</string>
+    <string name="try_">TRY</string>
+    <string name="end">END</string>
+    <string name="yourScore">Your Score: </string>
+    <string name="numberOfTries">Number of tries: </string>
+
+    <!-- Rules activity-->
+    <string name="huge_text">Your target is to find each numbers. You have 10 possibilities to find them. The less you try, the more points you will get.</string>
+    <string name="back">Back</string>
+
+    <!-- Score_table activity-->
+    <string name="sg">Hello</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/small_text" />
+
+    <Button
+        android:id="@+id/guessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/endButton"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="28dp"
+        android:onClick="onButtonClick"
+        android:text="@string/try_" />
+
+    <NumberPicker
+        android:id="@+id/first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/guessButton" />
+
+    <NumberPicker
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/first"
+        android:layout_alignBottom="@+id/first"
+        android:layout_centerHorizontal="true" />
+
+    <NumberPicker
+        android:id="@+id/third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/second"
+        android:layout_alignBottom="@+id/second"
+        android:layout_toEndOf="@+id/guessButton" />
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:onClick="onEndClick"
+        android:text="@string/end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/guessButton" />
+
+    <TextView
+        android:id="@+id/textYourScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="37dp"
+        android:layout_toStartOf="@+id/first"
+        android:text="@string/yourScore" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textYourScore"
+        android:layout_below="@+id/textYourScore"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textYourTries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/scoreText"
+        android:layout_below="@+id/scoreText"
+        android:text="@string/numberOfTries" />
+
+    <TextView
+        android:id="@+id/triesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textYourTries"
+        android:layout_below="@+id/textYourTries"
+        android:text="" />
+
+</RelativeLayout>

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -44,7 +46,7 @@ public class Score_table extends Activity{
 
     public void getScores() {
 
-        Cursor cursor = database.rawQuery("SELECT * FROM Scores", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM Scores ORDER BY score DESC", null);
 
         int nameColumn = cursor.getColumnIndex("name");
         int scoreColumn = cursor.getColumnIndex("score");

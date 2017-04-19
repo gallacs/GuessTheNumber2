@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Log;
@@ -35,12 +36,11 @@ public class Game extends Activity {
 
     Button guessButton, endButton;
     TextView textYourScore, scoreText, textYourTries, triesText;
-    //EditText contactListEditText;
     NumberPicker first, second, third;
     int guess1, guess2, guess3;
     int[] randomNumbers = new int[3];
 
-    public void createDatabase(View view) {
+    public void createDatabase() {
 
         try{
             database = this.openOrCreateDatabase("Scores", MODE_PRIVATE, null);
@@ -62,6 +62,7 @@ public class Game extends Activity {
         this.deleteDatabase("Scores");
 
     }
+
     public int[] randomMaker(){
         int[] randomnums = new int[3];
 
@@ -84,11 +85,11 @@ public class Game extends Activity {
         }
         return message;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
-
 
         textYourScore = (TextView) findViewById(R.id.textYourScore);
         scoreText = (TextView) findViewById(R.id.scoreText);
@@ -107,9 +108,8 @@ public class Game extends Activity {
             third.setMaxValue(9);
             third.setMinValue(1);
         randomNumbers = randomMaker();
-        //contactListEditText = (EditText)findViewById(R.id.contactListEditText);
 
-        Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_LONG).show();
     }
 
     public void addContact(String name, int scoreDB) {
@@ -118,37 +118,6 @@ public class Game extends Activity {
         database.execSQL("INSERT INTO Scores (name, score) VALUES ('" + name + "', " + scoreDB + ");");
 
     }
-
-//    public void showChangeLangDialog() {
-//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        final View dialogView = inflater.inflate(R.layout.dialog, null);
-//        dialogBuilder.setView(dialogView);
-//
-//        final EditText edt = (EditText) dialogView.findViewById(R.id.dialogEditText);
-//
-//        dialogBuilder.setTitle("Custom dialog");
-//        dialogBuilder.setMessage("Enter text below");
-//        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                //do something with edt.getText().toString();
-//                scoreName = edt.getText().toString();
-//                addContact(scoreName, allScore);
-//
-//                Intent i = new Intent(Game.this, Score_table.class);
-//                startActivity(i);
-//
-//
-//            }
-//        });
-//        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                //pass
-//            }
-//        });
-//        AlertDialog b = dialogBuilder.create();
-//        b.show();
-//    }
 
     public void onButtonClick(View view){
 
@@ -195,7 +164,7 @@ public class Game extends Activity {
             allScore += score;
 
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("You were great! You found out every numbers." +
+            dlgAlert.setMessage("You were great! You found every numbers." +
                     "\nTries number: " + tries +
                     "\nYour score for this turn: "  + score +
                     "\nAll Score: " + allScore +
@@ -208,18 +177,28 @@ public class Game extends Activity {
             score = 11;
 
             randomNumbers = randomMaker();
-            Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_SHORT).show();
         }
         scoreText.setText(String.valueOf(allScore));
         triesText.setText(String.valueOf(tries));
     }
+
+//    public void countdown(){
+//        new CountDownTimer(10000, 1000){
+//            public void onTick(long millisec){
+//                counterText.setText("Remaining time: " + millisec/1000);
+//            }
+//            public void onFinish(){
+//                counterText.setText("Time is up!");
+//                onEndClick(null);
+//            }
+//        }.start();
+//    }
+
     public void onEndClick(View view){
-        createDatabase(view);
-
-        if (view.getId() == R.id.endButton){
-
-//            showChangeLangDialog();
-//            dialogForName();
+        createDatabase();
+//        countdown();
+        if (view == null || view.getId() == R.id.endButton) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Your Name");
@@ -244,8 +223,6 @@ public class Game extends Activity {
                 }
             });
             builder.show();
-
-
         }
     }
 }

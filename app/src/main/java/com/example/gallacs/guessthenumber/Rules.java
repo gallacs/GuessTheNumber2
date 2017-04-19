@@ -21,7 +21,6 @@ public class Rules extends Activity {
         setContentView(R.layout.rules);
 
         backButton = (Button) findViewById(R.id.backButton);
-
     }
 
     public void onBackClick(View view){
