@@ -128,62 +128,68 @@ public class Game extends Activity {
         guessEs[2] = guess3 = third.getValue();
         int match = 0;
         int goodPlaceToo = 0;
-        tries++;
-        score--;
+        boolean game = true;
+
         if (isThereDouble(guessEs) != null) {
             Toast.makeText(this, isThereDouble(guessEs), Toast.LENGTH_SHORT).show();
+            game = false;
         }
-        for (int i = 0; i < randomNumbers.length; i++) {
-            for (int j = 0; j < guessEs.length; j++) {
-                if (randomNumbers[i] == guessEs[j]) {
-                    match++;
+        while(game){
+            tries++;
+            score--;
+            for (int i = 0; i < randomNumbers.length; i++) {
+                for (int j = 0; j < guessEs.length; j++) {
+                    if (randomNumbers[i] == guessEs[j]) {
+                        match++;
+                    }
+                }
+                if (randomNumbers[i] == guessEs[i]) {
+                    goodPlaceToo++;
                 }
             }
-            if (randomNumbers[i] == guessEs[i]) {
-                goodPlaceToo++;
+            //Toast.makeText(this, "Tries: " + tries, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Found numbers: " + match + " In place: " + goodPlaceToo, Toast.LENGTH_SHORT).show();
+
+            if(tries == 10){
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+                dlgAlert.setMessage("You can not find the solution." +
+                        "\nTries number: " + tries +
+                        "\nYour score for this turn: "  + score +
+                        "\nAll Score: " + allScore +
+                        "\nPress Ok for a new game!");
+                dlgAlert.setTitle("Try again!");
+                dlgAlert.setPositiveButton("Ok", null);
+                dlgAlert.setCancelable(false);
+                dlgAlert.create().show();
+                tries = 0;
+                score = 11;
             }
-        }
-        //Toast.makeText(this, "Tries: " + tries, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Found numbers: " + match + " In place: " + goodPlaceToo, Toast.LENGTH_SHORT).show();
+            if (match == 3 && goodPlaceToo == 3) {
+                allScore += score;
 
-        if(tries == 10){
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("You can not find the solution." +
-                    "\nTries number: " + tries +
-                    "\nYour score for this turn: "  + score +
-                    "\nAll Score: " + allScore +
-                    "\nPress Ok for a new game!");
-            dlgAlert.setTitle("Try again!");
-            dlgAlert.setPositiveButton("Ok", null);
-            dlgAlert.setCancelable(false);
-            dlgAlert.create().show();
-            tries = 0;
-            score = 11;
-        }
-        if (match == 3 && goodPlaceToo == 3) {
-            allScore += score;
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+                dlgAlert.setMessage("You were great! You found every numbers." +
+                        "\nTries number: " + tries +
+                        "\nYour score for this turn: "  + score +
+                        "\nAll Score: " + allScore +
+                        "\nPress Ok for a new game!");
+                dlgAlert.setTitle("Congratulations!");
+                dlgAlert.setPositiveButton("Ok", null);
+                dlgAlert.setCancelable(false);
+                dlgAlert.create().show();
+                tries = 0;
+                score = 11;
 
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("You were great! You found every numbers." +
-                    "\nTries number: " + tries +
-                    "\nYour score for this turn: "  + score +
-                    "\nAll Score: " + allScore +
-                    "\nPress Ok for a new game!");
-            dlgAlert.setTitle("Congratulations!");
-            dlgAlert.setPositiveButton("Ok", null);
-            dlgAlert.setCancelable(false);
-            dlgAlert.create().show();
-            tries = 0;
-            score = 11;
-
-            randomNumbers = randomMaker();
-            //Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_SHORT).show();
+                randomNumbers = randomMaker();
+                //Toast.makeText(this,randomNumbers[0] + " " + randomNumbers[1] + " " + randomNumbers[2], Toast.LENGTH_SHORT).show();
+            }
+            scoreText.setText(String.valueOf(allScore));
+            triesText.setText(String.valueOf(tries));
+            game = false;
         }
-        scoreText.setText(String.valueOf(allScore));
-        triesText.setText(String.valueOf(tries));
     }
 
-//    public void countdown(){
+//    public void countdown(View view){
 //        new CountDownTimer(10000, 1000){
 //            public void onTick(long millisec){
 //                counterText.setText("Remaining time: " + millisec/1000);
