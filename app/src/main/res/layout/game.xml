@@ -91,4 +91,19 @@
         android:layout_below="@+id/textYourTries"
         android:text="" />
 
+    <TextView
+        android:id="@+id/remainingTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textYourScore"
+        android:layout_alignStart="@+id/third"
+        android:text="@string/remainingTime" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/remainingTime"
+        android:layout_below="@+id/remainingTime" />
+
 </RelativeLayout>
